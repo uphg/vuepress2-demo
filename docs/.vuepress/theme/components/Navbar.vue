@@ -1,140 +1,110 @@
 <template>
-  <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
+  <header ref="navbar" class="navbar">
+    <ToggleSidebarButton @toggle="$emit('toggle-sidebar')" />
 
-    <RouterLink
-      :to="$localePath"
-      class="home-link"
-    >
-      <img
-        v-if="$site.themeConfig.logo"
-        class="logo"
-        :src="$withBase($site.themeConfig.logo)"
-        :alt="$siteTitle"
-      >
-      <span
-        v-if="$siteTitle"
-        ref="siteName"
-        class="site-name"
-        :class="{ 'can-hide': $site.themeConfig.logo }"
-      >{{ $siteTitle }}</span>
-    </RouterLink>
+    <span ref="siteBrand">
+      <RouterLink :to="siteBrandLink">
+        <!-- logo could be different in dark mode, so we make it client-only to avoid ssr-mismatch -->
+        <ClientOnly>
+          <img
+            v-if="siteBrandLogo"
+            class="logo"
+            :src="withBase(siteBrandLogo)"
+            :alt="siteBrandTitle"
+          />
+        </ClientOnly>
 
-    <div
-      class="links"
-      :style="linksWrapMaxWidth ? {
-        'max-width': linksWrapMaxWidth + 'px'
-      } : {}"
-    >
-      <AlgoliaSearchBox
-        v-if="isAlgoliaSearch"
-        :options="algolia"
-      />
-      <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false" />
-      <NavLinks class="can-hide" />
+        <span
+          v-if="siteBrandTitle"
+          class="site-name"
+          :class="{ 'can-hide': siteBrandLogo }"
+        >
+          {{ siteBrandTitle }}
+        </span>
+      </RouterLink>
+    </span>
+
+    <div class="navbar-links-wrapper" :style="linksWrapperStyle">
+      <slot name="before" />
+
+      <NavbarLinks class="can-hide" />
+
+      <slot name="after" />
+
+      <ToggleDarkModeButton v-if="enableDarkMode" />
+
+      <NavbarSearch />
     </div>
   </header>
 </template>
 
-<script>
-import AlgoliaSearchBox from '@AlgoliaSearchBox'
-import SearchBox from '@SearchBox'
-import SidebarButton from '@theme/components/SidebarButton.vue'
-import NavLinks from '@theme/components/NavLinks.vue'
+<script setup lang="ts">
+import { useRouteLocale, useSiteLocaleData, withBase } from '@vuepress/client'
+import { computed, onMounted, ref } from 'vue'
+import { useDarkMode, useThemeLocaleData } from '../composables/index'
+import NavbarLinks from './NavbarLinks.vue'
+import ToggleDarkModeButton from './ToggleDarkModeButton.vue'
+import ToggleSidebarButton from './ToggleSidebarButton.vue'
 
-export default {
-  name: 'Navbar',
+defineEmits(['toggle-sidebar'])
 
-  components: {
-    SidebarButton,
-    NavLinks,
-    SearchBox,
-    AlgoliaSearchBox
-  },
+const routeLocale = useRouteLocale()
+const siteLocale = useSiteLocaleData()
+const themeLocale = useThemeLocaleData()
+const isDarkMode = useDarkMode()
 
-  data () {
-    return {
-      linksWrapMaxWidth: null
-    }
-  },
-
-  computed: {
-    algolia () {
-      return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
-    },
-
-    isAlgoliaSearch () {
-      return this.algolia && this.algolia.apiKey && this.algolia.indexName
-    }
-  },
-
-  mounted () {
-    const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
-    const NAVBAR_VERTICAL_PADDING = parseInt(css(this.$el, 'paddingLeft')) + parseInt(css(this.$el, 'paddingRight'))
-    const handleLinksWrapWidth = () => {
-      if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
-        this.linksWrapMaxWidth = null
-      } else {
-        this.linksWrapMaxWidth = this.$el.offsetWidth - NAVBAR_VERTICAL_PADDING
-          - (this.$refs.siteName && this.$refs.siteName.offsetWidth || 0)
-      }
-    }
-    handleLinksWrapWidth()
-    window.addEventListener('resize', handleLinksWrapWidth, false)
+const navbar = ref<HTMLElement | null>(null)
+const siteBrand = ref<HTMLElement | null>(null)
+const siteBrandLink = computed(
+  () => themeLocale.value.home || routeLocale.value
+)
+const siteBrandLogo = computed(() => {
+  if (isDarkMode.value && themeLocale.value.logoDark !== undefined) {
+    return themeLocale.value.logoDark
   }
-}
+  return themeLocale.value.logo
+})
+const siteBrandTitle = computed(() => siteLocale.value.title)
+const linksWrapperMaxWidth = ref(0)
+const linksWrapperStyle = computed(() => {
+  if (!linksWrapperMaxWidth.value) {
+    return {}
+  }
+  return {
+    maxWidth: linksWrapperMaxWidth.value + 'px',
+  }
+})
+const enableDarkMode = computed(() => themeLocale.value.darkMode)
 
-function css (el, property) {
+// avoid overlapping of long title and long navbar links
+onMounted(() => {
+  // TODO: migrate to css var
+  // refer to _variables.scss
+  const MOBILE_DESKTOP_BREAKPOINT = 719
+  const navbarHorizontalPadding =
+    getCssValue(navbar.value, 'paddingLeft') +
+    getCssValue(navbar.value, 'paddingRight')
+  const handleLinksWrapWidth = (): void => {
+    if (window.innerWidth <= MOBILE_DESKTOP_BREAKPOINT) {
+      linksWrapperMaxWidth.value = 0
+    } else {
+      linksWrapperMaxWidth.value =
+        navbar.value!.offsetWidth -
+        navbarHorizontalPadding -
+        (siteBrand.value?.offsetWidth || 0)
+    }
+  }
+  handleLinksWrapWidth()
+  window.addEventListener('resize', handleLinksWrapWidth, false)
+  window.addEventListener('orientationchange', handleLinksWrapWidth, false)
+})
+
+function getCssValue(el: HTMLElement | null, property: string): number {
   // NOTE: Known bug, will return 'auto' if style value is 'auto'
-  const win = el.ownerDocument.defaultView
-  // null means not to return pseudo styles
-  return win.getComputedStyle(el, null)[property]
+  const val = el?.ownerDocument?.defaultView?.getComputedStyle(el, null)?.[
+    property
+  ]
+  const num = Number.parseInt(val, 10)
+  return Number.isNaN(num) ? 0 : num
 }
 </script>
-
-<style lang="stylus">
-$navbar-vertical-padding = 0.7rem
-$navbar-horizontal-padding = 1.5rem
-
-.navbar
-  padding $navbar-vertical-padding $navbar-horizontal-padding
-  line-height $navbarHeight - 1.4rem
-  a, span, img
-    display inline-block
-  .logo
-    height $navbarHeight - 1.4rem
-    min-width $navbarHeight - 1.4rem
-    margin-right 0.8rem
-    vertical-align top
-  .site-name
-    font-size 1.3rem
-    font-weight 600
-    color $textColor
-    position relative
-  .links
-    padding-left 1.5rem
-    box-sizing border-box
-    background-color white
-    white-space nowrap
-    font-size 0.9rem
-    position absolute
-    right $navbar-horizontal-padding
-    top $navbar-vertical-padding
-    display flex
-    .search-box
-      flex: 0 0 auto
-      vertical-align top
-
-@media (max-width: $MQMobile)
-  .navbar
-    padding-left 4rem
-    .can-hide
-      display none
-    .links
-      padding-left 1.5rem
-    .site-name
-      width calc(100vw - 9.4rem)
-      overflow hidden
-      white-space nowrap
-      text-overflow ellipsis
-</style>

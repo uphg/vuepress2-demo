@@ -1,33 +1,21 @@
 <template>
-  <transition
+  <Transition
     name="dropdown"
     @enter="setHeight"
     @after-enter="unsetHeight"
     @before-leave="setHeight"
   >
     <slot />
-  </transition>
+  </Transition>
 </template>
 
-<script>
-export default {
-  name: 'DropdownTransition',
+<script setup lang="ts">
+const setHeight = (items): void => {
+  // explicitly set height so that it can be transitioned
+  items.style.height = items.scrollHeight + 'px'
+}
 
-  methods: {
-    setHeight (items) {
-      // explicitly set height so that it can be transitioned
-      items.style.height = items.scrollHeight + 'px'
-    },
-
-    unsetHeight (items) {
-      items.style.height = ''
-    }
-  }
+const unsetHeight = (items): void => {
+  items.style.height = ''
 }
 </script>
-
-<style lang="stylus">
-.dropdown-enter, .dropdown-leave-to
-  height 0 !important
-
-</style>
