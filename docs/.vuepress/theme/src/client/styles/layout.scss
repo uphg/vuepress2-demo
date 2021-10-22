@@ -3,7 +3,7 @@
 
 .page {
   padding-top: var(--navbar-height);
-  padding-left: var(--sidebar-width);
+  // padding-left: var(--sidebar-width);
 }
 
 .navbar {
@@ -36,6 +36,9 @@
   background-color: var(--c-bg-sidebar);
   transition: transform var(--t-transform), background-color var(--t-color),
     border-color var(--t-color);
+  // Feat: 2021-10-22 16:37
+  padding-top: var(--navbar-height);
+  transform: translateX(-100%);
   &::-webkit-scrollbar {
     width: 7px;
   }
@@ -112,9 +115,9 @@
       display: none;
     }
 
-    .page {
-      padding-left: 0;
-    }
+    // .page {
+    //   padding-left: 0;
+    // }
   }
 }
 
@@ -171,9 +174,9 @@ h6 {
     width: var(--sidebar-width-mobile);
   }
 
-  .page {
-    padding-left: var(--sidebar-width-mobile);
-  }
+  // .page {
+  //   padding-left: var(--sidebar-width-mobile);
+  // }
 }
 
 // wide mobile
@@ -181,12 +184,12 @@ h6 {
   .sidebar {
     top: 0;
     padding-top: var(--navbar-height);
-    transform: translateX(-100%);
+    // transform: translateX(-100%);
   }
 
-  .page {
-    padding-left: 0;
-  }
+  // .page {
+  //   padding-left: 0;
+  // }
 
   .theme-container {
     &.sidebar-open {

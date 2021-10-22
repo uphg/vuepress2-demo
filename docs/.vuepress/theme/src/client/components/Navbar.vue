@@ -42,7 +42,7 @@
 import { useRouteLocale, useSiteLocaleData, withBase } from '@vuepress/client'
 import { computed, onMounted, ref } from 'vue'
 import { useDarkMode } from '../composables'
-import { useThemeLocaleData, useThemeData } from '../composables'
+import { useThemeLocaleData } from '../composables'
 import NavbarLinks from './NavbarLinks.vue'
 import ToggleDarkModeButton from './ToggleDarkModeButton.vue'
 import ToggleSidebarButton from './ToggleSidebarButton.vue'
@@ -52,11 +52,7 @@ defineEmits(['toggle-sidebar'])
 const routeLocale = useRouteLocale()
 const siteLocale = useSiteLocaleData()
 const themeLocale = useThemeLocaleData()
-const themeData = useThemeData()
 const isDarkMode = useDarkMode()
-
-console.log('themeData.value')
-console.log({...themeData.value})
 
 const navbar = ref<HTMLElement | null>(null)
 const siteBrand = ref<HTMLElement | null>(null)

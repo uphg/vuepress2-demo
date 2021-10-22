@@ -13,3 +13,8 @@
     <slot name="bottom" />
   </main>
 </template>
+
+<script setup lang="ts">
+import PageMeta from './PageMeta.vue'
+import PageNav from './PageNav.vue'
+</script>
