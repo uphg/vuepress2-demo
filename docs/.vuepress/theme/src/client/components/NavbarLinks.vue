@@ -1,9 +1,9 @@
 <template>
   <nav v-if="navbarLinks.length" class="navbar-links">
     <div v-for="item in navbarLinks" :key="item.text" class="navbar-links-item">
-      <DropdownLink v-if="item.children" :item="item" />
+      <DropdownLink v-if="(item as NavGroup<NavItem>).children" :item="(item as NavGroup<NavItem>)" />
 
-      <NavLink v-else :item="item" />
+      <NavLink v-else :item="(item as NavLinkType)" />
     </div>
   </nav>
 </template>
@@ -14,8 +14,9 @@ import { isLinkHttp, isString } from '@vuepress/shared'
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useRouter } from 'vue-router'
-import type { NavbarItem, NavbarGroup, ResolvedNavbarItem } from '../../shared'
-import { useNavLink, useThemeLocaleData } from '../composables/index'
+import type { NavLink as NavLinkType, NavbarItem, NavbarGroup, NavGroup, NavItem, ResolvedNavbarItem } from '../../shared'
+import { useNavLink } from '../composables'
+import { useThemeLocaleData } from '../composables'
 import { resolveRepoType } from '../utils'
 import DropdownLink from './DropdownLink.vue'
 import NavLink from './NavLink.vue'
@@ -28,6 +29,9 @@ const useNavbarSelectLanguage = (): ComputedRef<ResolvedNavbarItem[]> => {
   const routeLocale = useRouteLocale()
   const siteLocale = useSiteLocaleData()
   const themeLocale = useThemeLocaleData()
+
+  console.log('themeLocale.value')
+  console.log({...themeLocale.value})
 
   return computed<ResolvedNavbarItem[]>(() => {
     const localePaths = Object.keys(siteLocale.value.locales)

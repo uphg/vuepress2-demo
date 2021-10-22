@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeLocaleData } from '../composables/index'
+import { useThemeLocaleData } from '../composables'
 
 defineEmits(['toggle'])
 

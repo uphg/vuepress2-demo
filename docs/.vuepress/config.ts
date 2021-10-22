@@ -6,7 +6,9 @@ const fooPlugin = require('../plugins/foo.ts')
 
 
 export default defineUserConfig<DefaultThemeOptions>({
+  
   theme: path.resolve(__dirname, 'theme'),
+
   // plugins: [
   //   [
   //     fooPlugin,

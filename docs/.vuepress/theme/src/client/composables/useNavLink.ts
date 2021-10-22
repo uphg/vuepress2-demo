@@ -1,4 +1,5 @@
 import type { NavLink } from '../../shared'
+// import { NavLink } from '@vuepress/plugin-theme-data/lib/client'
 import { useResolveRouteWithRedirect } from './useResolveRouteWithRedirect'
 
 /**

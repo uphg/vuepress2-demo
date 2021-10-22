@@ -56,19 +56,15 @@
 import { usePageData, usePageFrontmatter } from '@vuepress/client'
 import { computed, onMounted, onUnmounted, ref, Transition } from 'vue'
 import { useRouter } from 'vue-router'
-import type { DefaultThemePageFrontmatter } from '../../shared'
 import Home from '../components/Home.vue'
 import Navbar from '../components/Navbar.vue'
 import Page from '../components/Page.vue'
 import Sidebar from '../components/Sidebar.vue'
-import {
-  useScrollPromise,
-  useSidebarItems,
-  useThemeLocaleData,
-} from '../composables/index'
+import { useScrollPromise } from '../composables'
+import { useThemeLocaleData } from '@vuepress/plugin-theme-data/lib/client'
 
 const page = usePageData()
-const frontmatter = usePageFrontmatter<DefaultThemePageFrontmatter>()
+const frontmatter = usePageFrontmatter()
 const themeLocale = useThemeLocaleData()
 
 // navbar
@@ -77,7 +73,6 @@ const shouldShowNavbar = computed(
 )
 
 // sidebar
-const sidebarItems = useSidebarItems()
 const isSidebarOpen = ref(false)
 const toggleSidebar = (to?: boolean): void => {
   isSidebarOpen.value = typeof to === 'boolean' ? to : !isSidebarOpen.value
@@ -103,7 +98,6 @@ const onTouchEnd = (e): void => {
 const containerClass = computed(() => [
   {
     'no-navbar': !shouldShowNavbar.value,
-    'no-sidebar': !sidebarItems.value.length,
     'sidebar-open': isSidebarOpen.value,
   },
   frontmatter.value.pageClass,

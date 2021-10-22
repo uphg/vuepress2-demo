@@ -39,7 +39,7 @@ import type {
   DefaultThemeNormalPageFrontmatter,
   NavLink as NavLinkType,
 } from '../../shared'
-import { useThemeLocaleData } from '../composables/index'
+import { useThemeLocaleData } from '../composables'
 import { resolveEditLink } from '../utils'
 import NavLink from './NavLink.vue'
 

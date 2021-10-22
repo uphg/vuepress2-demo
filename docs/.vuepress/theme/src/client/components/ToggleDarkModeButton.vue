@@ -46,7 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { useDarkMode, useThemeLocaleData } from '../composables/index'
+import { useThemeLocaleData } from '../composables'
+import { useDarkMode } from '../composables'
 
 const themeLocale = useThemeLocaleData()
 const isDarkMode = useDarkMode()

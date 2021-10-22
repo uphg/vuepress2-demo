@@ -44,12 +44,9 @@ import { useSiteData } from '@vuepress/client'
 import { isLinkHttp, isLinkMailto, isLinkTel } from '@vuepress/shared'
 import type { NavLink } from '../../shared'
 
-const props = defineProps({
-  item: {
-    type: Object as PropType<NavLink>,
-    required: true,
-  },
-})
+const props = defineProps<{
+  item: NavLink,
+}>()
 
 const route = useRoute()
 const site = useSiteData()

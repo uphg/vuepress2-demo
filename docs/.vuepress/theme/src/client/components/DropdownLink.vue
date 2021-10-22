@@ -24,17 +24,17 @@
       <ul v-show="open" class="nav-dropdown">
         <li
           v-for="(child, index) in item.children"
-          :key="child.link || index"
+          :key="(child as NavLinkType).link || index"
           class="dropdown-item"
         >
-          <template v-if="child.children">
+          <template v-if="(child as NavGroup<NavItem>).children">
             <h4 class="dropdown-subtitle">
               <NavLink
-                v-if="child.link"
-                :item="child"
+                v-if="(child as NavLinkType).link"
+                :item="(child as NavLinkType)"
                 @focusout="
                   isLastItemOfArray(child, item.children) &&
-                    child.children.length === 0 &&
+                    (child as NavGroup<NavItem>).children.length === 0 &&
                     (open = false)
                 "
               />
@@ -44,15 +44,15 @@
 
             <ul class="dropdown-subitem-wrapper">
               <li
-                v-for="grandchild in child.children"
-                :key="grandchild.link"
+                v-for="grandchild in (child as NavGroup<NavItem>).children"
+                :key="(grandchild as NavLinkType).link"
                 class="dropdown-subitem"
               >
                 <NavLink
-                  :item="grandchild"
+                  :item="(grandchild as NavLinkType)"
                   @focusout="
-                    isLastItemOfArray(grandchild, child.children) &&
-                      isLastItemOfArray(child, item.children) &&
+                    isLastItemOfArray(grandchild, (child as NavGroup<NavItem>).children) &&
+                      isLastItemOfArray(child, (item as NavGroup<NavItem>).children) &&
                       (open = false)
                   "
                 />
@@ -62,7 +62,7 @@
 
           <template v-else>
             <NavLink
-              :item="child"
+              :item="(child as NavLinkType)"
               @focusout="
                 isLastItemOfArray(child, item.children) && (open = false)
               "
@@ -78,7 +78,7 @@
 import { computed, ref, toRefs, watch } from 'vue'
 import type { PropType } from 'vue'
 import { useRoute } from 'vue-router'
-import type { NavGroup, NavItem } from '../../shared'
+import type { NavLink as NavLinkType, NavGroup, NavItem } from '../../shared'
 import DropdownTransition from './DropdownTransition.vue'
 import NavLink from './NavLink.vue'
 
