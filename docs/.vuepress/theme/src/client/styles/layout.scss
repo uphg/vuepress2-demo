@@ -66,7 +66,7 @@
       display: block;
     }
 
-    .navbar > .toggle-sidebar-button .icon {
+    .navbar > .navbar-wrap > .toggle-sidebar-button .icon {
       span {
         &:nth-child(1) {
           transform: rotate(45deg) translate3d(5.5px, 5.5px, 0);

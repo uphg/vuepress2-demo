@@ -5,8 +5,23 @@
     var(--navbar-height) - 2 * var(--navbar-padding-v)
   );
 
-  padding: var(--navbar-padding-v) var(--navbar-padding-h);
+  // padding: var(--navbar-padding-v) var(--navbar-padding-h);
   line-height: var(--navbar-line-height);
+
+  .navbar-wrap {
+    height: var(--navbar-height);
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--navbar-padding-h);
+    display: flex;
+    align-items: center;
+    @media (max-width: 959px) {
+      padding: 0 2rem;
+    }
+    @media (max-width: 419px) {
+      padding: 0 1.5rem;
+    }
+  }
 
   .logo {
     height: var(--navbar-line-height);
@@ -23,16 +38,18 @@
 
   .navbar-links-wrapper {
     display: flex;
-    position: absolute;
+    margin-left: auto;
+    // position: absolute;
     box-sizing: border-box;
-    top: var(--navbar-padding-v);
-    right: var(--navbar-padding-h);
+    // top: var(--navbar-padding-v);
+    // right: var(--navbar-padding-h);
     height: var(--navbar-line-height);
     padding-left: var(--navbar-padding-h);
     white-space: nowrap;
     font-size: 0.9rem;
 
     .search-box {
+      --search-input-width: 12em;
       flex: 0 0 auto;
       vertical-align: top;
     }
@@ -41,7 +58,7 @@
 
 @media (max-width: $MQMobile) {
   .navbar {
-    padding-left: 4rem;
+    // padding-left: 4rem;
 
     .can-hide {
       display: none;
@@ -61,6 +78,7 @@
  */
 .navbar-links {
   display: inline-block;
+  margin-left: 1rem;
 
   a {
     display: inline-block;
@@ -114,11 +132,12 @@
  * toggle sidebar button
  */
 .toggle-sidebar-button {
-  position: absolute;
-  top: 0.6rem;
-  left: 1rem;
+  // position: absolute;
+  // top: 0.6rem;
+  // left: 1rem;
   display: none;
   padding: 0.6rem;
+  margin-left: -0.6rem;
   cursor: pointer;
 }
 
@@ -147,7 +166,8 @@
 
 @media screen and (max-width: $MQMobile) {
   .toggle-sidebar-button {
-    display: block;
+    // display: block;
+    display: flex;
   }
 }
 
@@ -163,6 +183,8 @@
   color: var(--c-text);
   opacity: 0.8;
   cursor: pointer;
+  padding: 1px 6px;
+  margin-right: -6px;
   &:hover {
     opacity: 1;
   }

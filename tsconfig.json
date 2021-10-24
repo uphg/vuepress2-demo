@@ -14,7 +14,10 @@
     "sourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "target": "ES2018"
+    "target": "ES2018",
+    "paths": {
+      "@temp/*": ["docs/.vuepress/.temp/*"]
+    }
   },
   "include": ["**/.vuepress/**/*"],
   "exclude": ["node_modules", ".temp", "lib", "dist"]

@@ -1,39 +1,41 @@
 <template>
   <header ref="navbar" class="navbar">
-    <ToggleSidebarButton @toggle="$emit('toggle-sidebar')" />
+    <div class="navbar-wrap">
+      <ToggleSidebarButton @toggle="$emit('toggle-sidebar')" />
 
-    <span ref="siteBrand">
-      <RouterLink :to="siteBrandLink">
-        <!-- logo could be different in dark mode, so we make it client-only to avoid ssr-mismatch -->
-        <ClientOnly>
-          <img
-            v-if="siteBrandLogo"
-            class="logo"
-            :src="withBase(siteBrandLogo)"
-            :alt="siteBrandTitle"
-          />
-        </ClientOnly>
+      <span ref="siteBrand">
+        <RouterLink :to="siteBrandLink">
+          <!-- logo could be different in dark mode, so we make it client-only to avoid ssr-mismatch -->
+          <ClientOnly>
+            <img
+              v-if="siteBrandLogo"
+              class="logo"
+              :src="withBase(siteBrandLogo)"
+              :alt="siteBrandTitle"
+            />
+          </ClientOnly>
 
-        <span
-          v-if="siteBrandTitle"
-          class="site-name"
-          :class="{ 'can-hide': siteBrandLogo }"
-        >
-          {{ siteBrandTitle }}
-        </span>
-      </RouterLink>
-    </span>
+          <span
+            v-if="siteBrandTitle"
+            class="site-name"
+            :class="{ 'can-hide': siteBrandLogo }"
+          >
+            {{ siteBrandTitle }}
+          </span>
+        </RouterLink>
+      </span>
 
-    <div class="navbar-links-wrapper" :style="linksWrapperStyle">
-      <slot name="before" />
+      <div class="navbar-links-wrapper" :style="linksWrapperStyle">
+        <slot name="before" />
 
-      <NavbarLinks class="can-hide" />
+        <NavbarSearch />
 
-      <slot name="after" />
+        <NavbarLinks class="can-hide" />
 
-      <ToggleDarkModeButton v-if="enableDarkMode" />
+        <slot name="after" />
 
-      <NavbarSearch />
+        <ToggleDarkModeButton v-if="enableDarkMode" />
+      </div>
     </div>
   </header>
 </template>
