@@ -25,7 +25,6 @@ import { withBase } from '@vuepress/client'
 import { displayTime } from '../utils'
 import { PostType } from '../../shared'
 
-
 defineProps<{
   item: PostType
 }>()
@@ -37,6 +36,7 @@ defineProps<{
   text-decoration: inherit;
   display: block;
   padding: 1.2em 0;
+  transition: border-color 0.3s, color 0.3s;
   &:not(:last-child) {
     border-bottom: 1px solid var(--c-border);
   }
@@ -74,5 +74,6 @@ defineProps<{
   vertical-align: middle;
   position: relative;
   background-color: var(--c-border);
+  transition: background-color 0.3s;
 }
 </style>

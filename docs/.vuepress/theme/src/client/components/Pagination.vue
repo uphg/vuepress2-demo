@@ -75,11 +75,15 @@ const pageTotal = computed(() => Math.ceil(props.total / props.pageSize))
     border: 1px solid var(--c-border);
     border-radius: 5px;
     background-color: var(--c-bg);
-  }
-  .button-number {
+    transition: color 0.3s, border-color 0.3s, background-color 0.3s;
     &:hover {
       border-color: var(--c-text-lighter);
     }
+    &[disabled] {
+      border-color: var(--c-border);
+    }
+  }
+  .button-number {
     &.active {
       color: #fff;
       background-color: var(--c-brand);
