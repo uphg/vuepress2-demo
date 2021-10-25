@@ -24,13 +24,22 @@ module.exports = (options, ctx) => {
       }
       return {}
     },
-    // extendsPageData(page) {
-    //   const { title, path } = page
-    //   // console.log('page')
-    //   // console.log(page)
-    //   // console.log('path')
-    //   // console.log(path)
-    // },
+    extendsPageData(page) {
+      const { title, path } = page
+      // console.log('page')
+      // console.log(page)
+      // console.log('path')
+      // console.log(path)
+      console.log('page')
+      console.log(page)
+      const text = page.contentRendered.replace(/(<a[^>]+>#<\/a>)|(<[^>]+>)/g, '')
+      const description = text?.slice(0, 100) || null
+      console.log('description')
+      console.log(description)
+      return {
+        _description: description
+      }
+    },
     async onGenerated(app) {
       console.log('# ================================ \n  === onGenerated')
       // console.log('app')
@@ -97,6 +106,8 @@ function transferMs(date) {
 
 // 页面过滤
 function pageFilters(pages) {
+  console.log('pages')
+  console.log(pages)
   const newPosts = [] as { [key: string]: string}[]
   // pathInferred
   for (const page of pages) {
@@ -107,7 +118,8 @@ function pageFilters(pages) {
       path: page.path,
       title: page.title,
       date: page.frontmatter.date,
-      ...(page.frontmatter?.tags ? { tags: page.frontmatter.tags } : {})
+      ...(page.frontmatter?.tags ? { tags: page.frontmatter.tags } : {}),
+      ...(page.data?._description ? { description: page.data?._description } : {})
     })
   }
 

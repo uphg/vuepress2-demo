@@ -2,8 +2,6 @@ import { defineUserConfig } from 'vuepress'
 import type { DefaultThemeOptions } from 'vuepress'
 
 const { path } = require('@vuepress/utils')
-// const fooPlugin = require('../plugins/foo.ts') 
-
 
 export default defineUserConfig<DefaultThemeOptions>({
   lang: 'zh-CN',
@@ -32,7 +30,6 @@ export default defineUserConfig<DefaultThemeOptions>({
     ]
   },
   plugins: [
-    
     [
       '@vuepress/plugin-search',
       {

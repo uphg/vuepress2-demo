@@ -61,9 +61,9 @@ const pageTotal = computed(() => Math.ceil(props.total / props.pageSize))
 
 <style lang="scss">
 .pagination {
-  text-align: center;
   padding-top: 3em;
   display: flex;
+  justify-content: center;
   .button-number, .button-next, .button-prev {
     cursor: pointer;
     padding: 0 5px;
@@ -87,12 +87,12 @@ const pageTotal = computed(() => Math.ceil(props.total / props.pageSize))
     }
   }
   .button-next, .button-prev {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     & > svg {
-      width: 1em;
-      height: 1em;
+      width: 0.9em;
+      height: 0.9em;
     }
   }
 }
