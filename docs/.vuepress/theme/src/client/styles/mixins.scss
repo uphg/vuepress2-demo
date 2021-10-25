@@ -1,4 +1,6 @@
 
-// @mixin reset-h2 {
-//   border: none;
-// }
+@mixin text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
