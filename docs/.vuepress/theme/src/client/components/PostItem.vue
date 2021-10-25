@@ -1,7 +1,7 @@
 <template>
-  <a
+  <router-link
     class="post-item"
-    :href="withBase(item.path)"
+    :to="item.path"
   >
     <h2 class="title">
       <span :title="item.title">{{ item.title }}</span>
@@ -17,7 +17,7 @@
         <span class="tag-item">{{ tag }}</span>
       </template>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script setup lang="ts">
