@@ -36,8 +36,7 @@ defineProps<{
   color: inherit;
   text-decoration: inherit;
   display: block;
-  padding: 1em 0;
-  // margin-bottom: 1em;
+  padding: 1.2em 0;
   &:not(:last-child) {
     border-bottom: 1px solid var(--c-border);
   }
@@ -58,7 +57,7 @@ defineProps<{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
   }
   .meta {
     font-size: 14px;
