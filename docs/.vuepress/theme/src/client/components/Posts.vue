@@ -1,12 +1,21 @@
 <template>
   <div class="posts">
-    <div class="post-item">
-      <div class="title"><span>{{}}</span></div>
-    </div>
+    <BlogItem
+      v-for="(blog, index) in posts"
+      :key="index"
+      :item="blog"
+    />
   </div>
+  <Pagination
+    v-model:page="currentPage"
+    :page-size="pageSize"
+    :total="total"
+  />
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const props = defineProps<{
   posts: {
     path: string,
@@ -15,4 +24,8 @@ const props = defineProps<{
     tags: string[]
   }[]
 }>()
+
+const currentPage = ref(1)
+const pageSize = ref(10)
+const total = ref(999)
 </script>
