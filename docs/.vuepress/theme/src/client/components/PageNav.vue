@@ -28,20 +28,3 @@ const nextNavLink = {
   link: '/'
 }
 </script>
-
-<style lang="scss">
-.page-nav {
-  .prev, .next {
-    display: inline-flex;
-    align-items: center;
-  }
-  .prev-icon, .next-icon {
-    width: 0.9em;
-    height: 0.9em;
-  }
-  .inner .nav-link {
-    line-height: 1;
-  }
-}
-
-</style>

@@ -11,6 +11,25 @@
     padding: 3rem 0;
   }
 
+  .intro {
+    text-align: center;
+    padding: 4em 0 4em;
+  }
+  
+  .avatar-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, border 0.3s ease;
+    border: 4px solid var(--c-border);
+  }
+  
+  .avatar-img:hover {
+    position: relative;
+    transform: translateY(-0.75em);
+    cursor: pointer;
+  }
+
   .hero {
     text-align: center;
 

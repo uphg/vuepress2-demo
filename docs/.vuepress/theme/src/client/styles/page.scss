@@ -1,5 +1,6 @@
 @import '_variables';
 @import '_wrapper';
+@import 'mixins';
 
 .page {
   padding-bottom: 2rem;
@@ -34,6 +35,42 @@
 
   .last-updated {
     float: right;
+  }
+}
+
+.page-header {
+  @extend %wrapper;
+  .page-title {
+    margin: 1em 0 0;
+    font-size: 2em;
+    padding-bottom: 0;
+    border: none;
+    // @include text-ellipsis;
+  }
+  .meta {
+    padding-top: 1em;
+    color: #909090;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+  }
+  .author {
+    color: var(--c-text);
+  }
+}
+
+.page-nav {
+  .prev, .next {
+    display: inline-flex;
+    align-items: center;
+  }
+  .prev-icon, .next-icon {
+    width: 0.9em;
+    height: 0.9em;
+  }
+  .inner .nav-link {
+    line-height: 1;
   }
 }
 
