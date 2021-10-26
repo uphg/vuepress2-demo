@@ -52,7 +52,9 @@ export default defineUserConfig<DefaultThemeOptions>({
     // 默认是 false, 设置为 true 来启用
     editLinks: true,
     // 默认为 "Edit this page"
-    editLinkText: '在 GitHub 上编辑此页面'
+    editLinkText: '在 GitHub 上编辑此页面',
+
+    contributorsText: '贡献者',
   },
   plugins: [
     [

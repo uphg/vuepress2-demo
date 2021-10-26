@@ -1,6 +1,6 @@
 const dayjs = require('dayjs')
 const { path } = require('@vuepress/utils')
-const pluginBlog = require('./src/plugins/blog/index.ts') 
+const pluginBlog = require('./src/plugins/blog/index.ts')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -47,7 +47,7 @@ module.exports = (options, app) => {
         //   : false,
       ],
       ['@vuepress/nprogress'],
-      
+      ['@vuepress/plugin-git']
     ],
   }
 }
