@@ -11,7 +11,7 @@ dayjs.extend(relativeTime)
  * 显示相对时间
  * 在两年内显示相对时间，两年后显示绝对时间。
  */
- export function displayTime(time: number | string): string {
+export function displayTime(time: number | string): string {
   if (!time) return ''
   const currentTime = new Date().getTime()
   const postTime = new Date(time).getTime()

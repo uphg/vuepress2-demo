@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { computed, Ref } from 'vue'
 import { usePageData, useSiteData, withBase } from '@vuepress/client'
-import { displayTime } from '../utils'
+import { displayTime } from '../../utils'
 
 const page = usePageData() as unknown as Ref<{
   title: string,

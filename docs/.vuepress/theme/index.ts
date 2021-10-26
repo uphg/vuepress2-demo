@@ -1,11 +1,10 @@
+const dayjs = require('dayjs')
 const { path } = require('@vuepress/utils')
 const pluginBlog = require('./src/plugins/blog/index.ts') 
 
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = (options, app) => {
-  console.log('options')
-  console.log(options)
   return {
     layouts: {
       Layout: path.resolve(__dirname, 'src/client/layouts/Layout.vue'),
@@ -48,6 +47,7 @@ module.exports = (options, app) => {
         //   : false,
       ],
       ['@vuepress/nprogress'],
+      
     ],
   }
 }

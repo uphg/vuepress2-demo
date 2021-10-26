@@ -2,16 +2,20 @@
   color: inherit;
   text-decoration: inherit;
   display: block;
-  padding: 1.2em 0;
+  padding: 1.3rem 1.4rem;
   transition: border-color 0.3s, color 0.3s;
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
   &:not(:last-child) {
-    border-bottom: 1px solid var(--c-border);
+    margin-bottom: 1.4rem;
+  }
+  &:hover {
+    border-color: var(--c-brand);
   }
   .title {
     margin: 0;
     border: none;
     font-size: 18px;
-    // font-weight: normal;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -30,6 +34,7 @@
     font-size: 14px;
     color: #86909c;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
   .divider {

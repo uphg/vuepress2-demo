@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { withBase } from '@vuepress/client'
-import { displayTime } from '../utils'
+// import { withBase } from '@vuepress/client'
+import { displayTime } from '../../utils'
 import { PostType } from '../../shared'
 
 defineProps<{
