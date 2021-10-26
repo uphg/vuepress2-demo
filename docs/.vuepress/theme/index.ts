@@ -5,6 +5,17 @@ const pluginBlog = require('./src/plugins/blog/index.ts')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = (options, app) => {
+  console.log('options')
+  console.log(options)
+  if (!(options.navbar && Array.isArray(options.navbar))) {
+    options.navbar = []
+  }
+
+  options.navbar.unshift({ text: '关于', link: '/about/' })
+  options.navbar.unshift({ text: '标签', link: '/tags/' })
+  options.navbar.unshift({ text: '归档', link: '/archives/' })
+  options.navbar.unshift({ text: '首页', link: '/' })
+
   return {
     layouts: {
       Layout: path.resolve(__dirname, 'src/client/layouts/Layout.vue'),

@@ -31,6 +31,9 @@
 
     <slot name="page">
       <Home v-if="frontmatter.home" />
+      <Archives v-else-if="frontmatter._archives" />
+      <Tags v-else-if="frontmatter._tags" />
+      <About v-else-if="frontmatter._about" />
 
       <Transition
         v-else
@@ -57,6 +60,9 @@ import { usePageData, usePageFrontmatter } from '@vuepress/client'
 import { computed, onMounted, onUnmounted, ref, Transition } from 'vue'
 import { useRouter } from 'vue-router'
 import Home from '../components/Home.vue'
+import Archives from '../components/Archives.vue'
+import Tags from '../components/Tags.vue'
+import About from '../components/About.vue'
 import Navbar from '../components/Navbar.vue'
 import Page from '../components/Page.vue'
 import Sidebar from '../components/Sidebar.vue'

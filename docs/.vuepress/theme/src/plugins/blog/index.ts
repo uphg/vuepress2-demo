@@ -5,10 +5,6 @@ import { PostType } from '../../shared';
 const home = path.resolve(__dirname, 'src/template/README')
 
 module.exports = (options, ctx) => {
-  console.log('options')
-  console.log(options)
-  // console.log('ctx')
-  // console.log(ctx)
   return {
     name: 'vuepress-plugin-foo',
     extendsPageOptions: (PageOptions, app) => {
@@ -29,6 +25,7 @@ module.exports = (options, ctx) => {
       const description = text?.slice(0, 100) || null
 
       return {
+        filePathRelative: page.filePathRelative,
         _description: description
       }
     },
@@ -78,20 +75,32 @@ module.exports = (options, ctx) => {
  * @param app
  */
 async function createPageTemplate(app) {
-  // 如果主页不存在
+
+  const archivepage = await createPage(app, {
+    path: '/archives',
+    frontmatter: {
+      _archives: true
+    }
+  })
+
+  const tagspage = await createPage(app, {
+    path: '/tags',
+    frontmatter: {
+      _tags: true
+    }
+  })
+
+  app.pages.push(archivepage)
+  app.pages.push(tagspage)
+
   if (app.pages.every((page) => page.path !== '/')) {
-    // 创建一个主页
     const homepage = await createPage(app, {
       path: '/',
-      // 设置 frontmatter
       frontmatter: {
         home: true,
         layout: 'Layout',
-      },
-      // 设置 markdown 内容
-      content: '我是首页'
+      }
     })
-    // 把它添加到 `app.pages`
     app.pages.push(homepage)
   }
 }

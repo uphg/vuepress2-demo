@@ -1,5 +1,5 @@
 ---
-isAbout: true
+_about: true
 title: 关于我
 ---
 

@@ -1,0 +1,6 @@
+@import '_wrapper';
+
+.archives {
+  @extend %wrapper;
+  padding-top: var(--navbar-height);
+}

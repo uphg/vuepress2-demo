@@ -1,0 +1,6 @@
+@import '_wrapper';
+
+.tags {
+  @extend %wrapper;
+  padding-top: var(--navbar-height);
+}
