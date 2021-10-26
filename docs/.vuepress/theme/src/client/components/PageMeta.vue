@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="lastUpdated" class="meta-item last-updated">
-      <span class="meta-item-label">{{ themeLocale.lastUpdatedText }}: </span>
+      <span class="meta-item-label">{{ themeLocale.lastUpdatedText }}：</span>
       <span class="meta-item-info">{{ lastUpdated }}</span>
     </div>
 
@@ -13,13 +13,13 @@
       v-if="contributors && contributors.length"
       class="meta-item contributors"
     >
-      <span class="meta-item-label">{{ themeLocale.contributorsText }}: </span>
+      <span class="meta-item-label">{{ themeLocale.contributorsText }}：</span>
       <span class="meta-item-info">
         <template v-for="(contributor, index) in contributors" :key="index">
           <span class="contributor" :title="`email: ${contributor.email}`">
             {{ contributor.name }}
           </span>
-          <template v-if="index !== contributors.length - 1">, </template>
+          <template v-if="index !== contributors.length - 1">，</template>
         </template>
       </span>
     </div>
@@ -38,6 +38,7 @@ import type {
 import { useThemeLocaleData } from '../composables'
 import { resolveEditLink } from '../utils'
 import NavLink from './NavLink.vue'
+import { timeFormat } from '../../utils'
 
 const useEditNavLink = (): ComputedRef<null | NavLinkType> => {
   const themeLocale = useThemeLocaleData()
@@ -93,9 +94,10 @@ const useLastUpdated = (): ComputedRef<null | string> => {
 
     if (!page.value.git?.updatedTime) return null
 
-    const updatedDate = new Date(page.value.git?.updatedTime)
+    // const updatedDate = new Date(page.value.git?.updatedTime)
 
-    return updatedDate.toLocaleString(siteLocale.value.lang)
+    // return updatedDate.toLocaleString(siteLocale.value.lang)
+    return timeFormat(page.value.git?.updatedTime)
   })
 }
 

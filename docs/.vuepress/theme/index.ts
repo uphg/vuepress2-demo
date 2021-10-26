@@ -13,21 +13,14 @@ module.exports = (options, app) => {
     clientAppEnhanceFiles: path.resolve(__dirname, 'src/client/clientAppEnhance.ts'),
     clientAppSetupFiles: path.resolve(__dirname, 'src/client/clientAppSetup.ts'),
     plugins: [
-      [
-        pluginBlog,
-        // {
-        //   optionA: 123,/* 选项 */
-        // },
-      ],
+      [ pluginBlog ],
       [
         '@vuepress/plugin-palette',
         { preset: 'sass' },
       ],
       [
         '@vuepress/plugin-theme-data',
-        {
-          themeData: options,
-        },
+        { themeData: options },
       ],
       
       /**

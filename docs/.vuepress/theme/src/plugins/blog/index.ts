@@ -11,19 +11,19 @@ module.exports = (options, ctx) => {
   // console.log(ctx)
   return {
     name: 'vuepress-plugin-foo',
-    // extendsPageOptions: (PageOptions, app) => {
-    //   const { filePath } = PageOptions
-    //   console.log('# ================================ \n  === extendsPageOptions')
-    //   if (filePath?.startsWith(app.dir.source('posts/'))) {
-    //     return {
-    //       frontmatter: {
-    //         foo: 'hi',
-    //         permalinkPattern: '/:year/:month/:day/:slug.html', // 文件路径属性，可修改
-    //       },
-    //     }
-    //   }
-    //   return {}
-    // },
+    extendsPageOptions: (PageOptions, app) => {
+      const { filePath } = PageOptions
+      console.log('# ================================ \n  === extendsPageOptions')
+      if (filePath?.startsWith(app.dir.source('posts/'))) {
+        return {
+          frontmatter: {
+            // permalinkPattern: '/:year/:month/:day/:slug.html', // 文件路径属性，可修改
+            permalinkPattern: '/:slug.html',
+          },
+        }
+      }
+      return {}
+    },
     extendsPageData(page) {
       const text = page.contentRendered.replace(/(<a[^>]+>#<\/a>)|(<[^>]+>)/g, '')
       const description = text?.slice(0, 100) || null
@@ -34,16 +34,12 @@ module.exports = (options, ctx) => {
     },
     async onGenerated(app) {
       console.log('# ================================ \n  === onGenerated')
-      // console.log('app')
-      // console.log(app)
     },
     async onPrepared(app) {
       console.log('# ================================ \n  === onPrepared')
       
       const PREFIX = 'vuepress_blog';
       const pageSize = 10
-
-      // await app.writeTemp(`${PREFIX}/get-posts.js`, )
 
       const filterPages = pageFilters(app.pages)
       const sortPages = bubbleSort(filterPages, (current, next) => {
@@ -71,23 +67,32 @@ module.exports = (options, ctx) => {
     // 初始化之后，所有的页面已经加载完毕
     async onInitialized(app) {
       console.log('# ================================ \n  === onInitialized')
-      // 如果主页不存在
-      if (app.pages.every((page) => page.path !== '/')) {
-        // 创建一个主页
-        const homepage = await createPage(app, {
-          path: '/',
-          // 设置 frontmatter
-          frontmatter: {
-            home: true,
-            layout: 'Layout',
-          },
-          // 设置 markdown 内容
-          content: '我是首页'
-        })
-        // 把它添加到 `app.pages`
-        app.pages.push(homepage)
-      }
+      await createPageTemplate(app)
     }
+  }
+}
+
+/**
+ * 创建页面模板
+ * 自动添加 首页、归档页、标签页
+ * @param app
+ */
+async function createPageTemplate(app) {
+  // 如果主页不存在
+  if (app.pages.every((page) => page.path !== '/')) {
+    // 创建一个主页
+    const homepage = await createPage(app, {
+      path: '/',
+      // 设置 frontmatter
+      frontmatter: {
+        home: true,
+        layout: 'Layout',
+      },
+      // 设置 markdown 内容
+      content: '我是首页'
+    })
+    // 把它添加到 `app.pages`
+    app.pages.push(homepage)
   }
 }
 

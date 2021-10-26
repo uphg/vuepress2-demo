@@ -11,7 +11,6 @@ export default defineUserConfig<DefaultThemeOptions>({
   theme: path.resolve(__dirname, 'theme'),
   themeConfig: {
     
-    
     darkMode: true,
     toggleDarkMode: '切换夜间模式',
     
