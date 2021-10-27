@@ -1,8 +1,11 @@
-const { path } = require('@vuepress/utils')
+// const { path } = require('@vuepress/utils')
 import { createPage } from '@vuepress/core';
 import { mockBlogs } from '../../mock/mock-blogs'
 import { PostType } from '../../shared';
-const home = path.resolve(__dirname, 'src/template/README')
+
+let _posts = [] as { [key: string]: string }[]
+let _simplePosts = [] as { [key: string]: string }[]
+const _descriptions = [] as { [key: string]: string }[]
 
 module.exports = (options, ctx) => {
   return {
@@ -21,12 +24,17 @@ module.exports = (options, ctx) => {
       return {}
     },
     extendsPageData(page) {
+      if (!isPostDir(page.pathInferred)) return
       const text = page.contentRendered.replace(/(<a[^>]+>#<\/a>)|(<[^>]+>)/g, '')
       const description = text?.slice(0, 100) || null
 
+      _descriptions.push({
+        path: page.path,
+        description: description
+      })
       return {
         filePathRelative: page.filePathRelative,
-        _description: description
+        // _description: description
       }
     },
     async onGenerated(app) {
@@ -38,26 +46,31 @@ module.exports = (options, ctx) => {
       const PREFIX = 'vuepress_blog';
       const pageSize = 10
 
-      const filterPages = pageFilters(app.pages)
-      const sortPages = bubbleSort(filterPages, (current, next) => {
+      const filterPosts = mockBlogs(postFilters(app.pages))
+
+      _posts = bubbleSort(filterPosts, (current, next) => {
         const currentDate = transferMs(current?.date)
         const nextDate = transferMs(next?.date)
         return currentDate < nextDate
       })
 
-      const pages = mockBlogs(sortPages)
+      _simplePosts = createSimplePosts(_posts)
 
-      const intervals = getIntervallers(pages.length, pageSize)
-      const paginationsPages = createPaginations(intervals, pages)
+      const intervals = getIntervallers(_posts.length, pageSize)
+      const paginationsPages = createPaginations(intervals, _posts as unknown as PostType[])
 
       await createTemp([
         {
+          path: `${PREFIX}/simple-pages.js`,
+          content: `export const simplePages = ${JSON.stringify(_simplePosts)}`
+        },
+        {
           path: `${PREFIX}/pages.js`,
-          content: `export const pages = ${JSON.stringify(pages)}`
+          content: `export const pages = ${JSON.stringify(_posts)}`
         },
         {
           path: `${PREFIX}/paginations.js`,
-          content: `export const paginationsPages = ${JSON.stringify(paginationsPages)};\nexport const total = ${pages.length};\nexport const pageSize = ${pageSize};\n`
+          content: `export const paginationsPages = ${JSON.stringify(paginationsPages)};\nexport const total = ${_posts.length};\nexport const pageSize = ${pageSize};\n`
         }
       ], app)
     },
@@ -111,23 +124,32 @@ function transferMs(date) {
 }
 
 // 页面过滤
-function pageFilters(pages) {
+function postFilters(pages) {
   const newPosts = [] as { [key: string]: string}[]
   // pathInferred
   for (const page of pages) {
-    if (!page.pathInferred || !(page.pathInferred.startsWith('/posts'))) {
+    if (!isPostDir(page.pathInferred)) {
       continue
     }
+    
     newPosts.push({
       path: page.path,
       title: page.title,
-      date: page.frontmatter.date,
+      date: page.frontmatter?.date,
+      description: (_descriptions.filter((item) => item.path === page.path)[0]).description,
       ...(page.frontmatter?.tags ? { tags: page.frontmatter.tags } : {}),
-      ...(page.data?._description ? { description: page.data?._description } : {})
     })
   }
 
   return newPosts
+}
+
+// 生成简易的页面信息，用于上下页跳转
+function createSimplePosts(pages) {
+  return pages.map((page) => ({
+    path: page.path,
+    title: page.title
+  }));
 }
 
 // 对象排序
@@ -176,4 +198,11 @@ async function createTemp(dynamicModules, app) {
   for(const item of dynamicModules) {
     await app.writeTemp(item.path, item.content)
   }
+}
+
+// 判断是否是 posts 目录下文件
+function isPostDir(pathInferred) {
+  if(!(typeof pathInferred === 'string')) return false
+
+  return !!(pathInferred && pathInferred.startsWith('/posts'))
 }

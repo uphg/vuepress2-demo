@@ -28,6 +28,9 @@ import Pagination from './Pagination.vue'
 import { paginationsPages, pageSize, total } from '@temp/vuepress_blog/paginations'
 // import Posts from './Posts.vue';
 
+console.log('paginationsPages')
+console.log(paginationsPages)
+
 const currentPage = ref(1)
 const currentPosts = computed(() => paginationsPages[currentPage.value - 1])
 </script>
