@@ -4,3 +4,8 @@
   @extend %wrapper;
   padding-top: var(--navbar-height);
 }
+
+.archive-item {
+  display: flex;
+  justify-content: space-between;
+}

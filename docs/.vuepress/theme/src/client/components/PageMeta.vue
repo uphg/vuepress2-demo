@@ -71,9 +71,6 @@ const useEditNavLink = (): ComputedRef<null | NavLinkType> => {
         frontmatter.value.editLinkPattern ?? themeLocale.value.editLinkPattern,
     })
 
-    console.log('page.value.filePathRelative')
-    console.log({...page.value})
-
     if (!editLink) return null
 
     return {

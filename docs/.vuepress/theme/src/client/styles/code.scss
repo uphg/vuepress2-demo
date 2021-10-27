@@ -149,6 +149,7 @@ div[class*='language-'] {
   position: relative;
   background-color: var(--code-bg-color);
   border-radius: 6px;
+  font-family: var(--code-font-family);
 
   &::before {
     position: absolute;
@@ -157,6 +158,10 @@ div[class*='language-'] {
     right: 1em;
     font-size: 0.75rem;
     color: var(--code-ln-color);
+  }
+
+  pre, code {
+    font-family: var(--font-family-code);
   }
 
   pre,
@@ -217,6 +222,7 @@ div[class*='language-'] {
       color: var(--code-ln-color);
       padding-top: 1.25rem;
       line-height: 1.4;
+      font-family: var(--font-family-code);
 
       br {
         user-select: none;

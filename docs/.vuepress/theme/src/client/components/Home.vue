@@ -4,9 +4,9 @@
       <Intro />
       <div class="posts">
         <PostItem
-          v-for="(blog, index) in currentPosts"
+          v-for="(post, index) in currentPosts"
           :key="index"
-          :item="blog"
+          :item="post"
         />
       </div>
       <Pagination
@@ -20,17 +20,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { usePageFrontmatter } from '@vuepress/client'
 import Intro from './Intro.vue';
 import PostItem from './PostItem.vue'
 import Pagination from './Pagination.vue'
-// import { pages } from '@temp/vuepress_blog/pages'
-import { paginationsPages, pageSize, total } from '@temp/vuepress_blog/paginations'
-// import Posts from './Posts.vue';
-
-console.log('paginationsPages')
-console.log(paginationsPages)
+import {
+  postPaginations,
+  postPageSize as pageSize,
+  postTotal as total
+} from '@temp/vuepress_blog/post-pagination'
 
 const currentPage = ref(1)
-const currentPosts = computed(() => paginationsPages[currentPage.value - 1])
+const currentPosts = computed(() => postPaginations[currentPage.value - 1])
 </script>
