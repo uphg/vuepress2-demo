@@ -3,7 +3,6 @@
 
 .page {
   padding-top: var(--navbar-height);
-  // padding-left: var(--sidebar-width);
 }
 
 .navbar {
@@ -34,8 +33,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--c-brand) var(--c-border);
   background-color: var(--c-bg-sidebar);
-  transition: transform var(--t-transform), background-color var(--t-color),
-    border-color var(--t-color);
+  transition: transform var(--t-transform), background-color var(--t-color), border-color var(--t-color);
   // Feat: 2021-10-22 16:37
   padding-top: var(--navbar-height);
   transform: translateX(-100%);
@@ -164,6 +162,22 @@ h6 {
 
   img {
     max-width: 100%;
+  }
+}
+
+.column-title {
+  border-bottom: none;
+  font-size: 2em;
+  text-align: center;
+  margin: 0;
+  padding: 5rem 0 3rem;
+
+  @media (max-width: $MQNarrow) {
+    padding: 3rem 0 2rem;
+  }
+
+  @media (max-width: $MQMobileNarrow) {
+    padding: 3rem 0 2rem;
   }
 }
 

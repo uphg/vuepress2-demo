@@ -5,7 +5,40 @@
   padding-top: var(--navbar-height);
 }
 
+.archive {
+  padding: 0 0 2rem;
+  & > .title {
+    color: var(--c-text-lighter);
+    font-weight: bold;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin: {
+      top: 0;
+      bottom: 0.8em;
+    };
+  }
+  & > .list {
+    margin: {
+      top: 0;
+      bottom: 0;
+      left: 3px;
+    };
+  }
+}
+
 .archive-item {
-  display: flex;
-  justify-content: space-between;
+  font-size: 14px;
+  color: #86909c;
+  line-height: 1;
+  margin-bottom: 20px;
+  .link {
+    color: inherit;
+    &:hover {
+      color: var(--c-text-accent);
+    }
+  }
+  .date {
+    margin-right: 1.5rem;
+    font-size: 16px;
+  }
 }

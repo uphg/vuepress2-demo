@@ -1,15 +1,15 @@
 <template>
   <div class="archives">
-    <h2>归档</h2>
+    <h2 class="column-title">归档</h2>
     <div class="archive" v-for="(item, index) in currentArchives" :key="index">
       <h2 class="title">{{ item.year }}</h2>
       <ul class="list">
         <li class="archive-item" v-for="(post, i) in item.list">
+          <span class="date">{{ timeFormat(post.date) }}</span>
           <router-link
             class="link"
             :to="post.path"
           >{{ post.title }}</router-link>
-          <span class="date">{{ timeFormat(post.date) }}</span>
         </li>
       </ul>
     </div>
@@ -33,5 +33,5 @@ import {
 
 const currentPage = ref(1)
 const currentArchives = computed(() => archivePaginations[currentPage.value - 1])
-const timeFormat = (date) => _timeFormat(date, 'YYYY-MM-DD')
+const timeFormat = (date) => _timeFormat(date, 'MM-DD')
 </script>

@@ -1,6 +1,21 @@
 @import '_wrapper';
 
 .about {
-  @extend %wrapper;
   padding-top: var(--navbar-height);
+  & > .column-title {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+
+    @media (max-width: $MQNarrow) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    @media (max-width: $MQMobileNarrow) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 <template>
   <main class="about">
+    <h2 class="column-title">{{ title }}</h2>
     <div class="theme-default-content">
-      <h2 class="title">{{ title }}</h2>
       <Content />
     </div>
   </main>
@@ -9,13 +9,11 @@
 <script setup lang="ts">
 import { computed, Ref } from 'vue'
 import { usePageData } from '@vuepress/client'
+import ColumnTitle from './ColumnTitle.vue'
 
 const page = usePageData() as unknown as Ref<{
   title: string
-  frontmatter: {
-    title: string
-  },
 }>
 
-const title = computed(() => page.value.title || page.value.frontmatter.title)
+const title = computed(() => page.value.title )
 </script>

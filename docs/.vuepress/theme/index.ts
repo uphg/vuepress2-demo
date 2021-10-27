@@ -1,20 +1,33 @@
-const dayjs = require('dayjs')
+import { find } from "./src/utils"
+
 const { path } = require('@vuepress/utils')
 const pluginBlog = require('./src/plugins/blog/index.ts')
-
 const isProd = process.env.NODE_ENV === 'production'
 
+interface NavLinkType { text: string; link: string; }
+
+const createNavbar = (navbar, navLinks) => {
+  for (let i = navLinks.length - 1; i >= 0; i--) {
+    const navlink = navLinks[i]
+    if (find<NavLinkType>(navlink || [], (item => item.link === navlink.link))) {
+      continue
+    }
+    navbar.unshift(navlink)
+  }
+}
+
 module.exports = (options, app) => {
-  console.log('options')
-  console.log(options)
+
   if (!(options.navbar && Array.isArray(options.navbar))) {
     options.navbar = []
   }
 
-  options.navbar.unshift({ text: '关于', link: '/about/' })
-  options.navbar.unshift({ text: '标签', link: '/tags/' })
-  options.navbar.unshift({ text: '归档', link: '/archives/' })
-  options.navbar.unshift({ text: '首页', link: '/' })
+  createNavbar(options.navbar, [
+    { text: '首页', link: '/' },
+    { text: '归档', link: '/archives/' },
+    { text: '标签', link: '/tags/' },
+    { text: '关于', link: '/about/' },
+  ])
 
   return {
     layouts: {

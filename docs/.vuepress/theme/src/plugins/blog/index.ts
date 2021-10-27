@@ -79,24 +79,26 @@ module.exports = (options, ctx) => {
  * @param app
  */
 async function createPageTemplate(app) {
+  if (app.pages.every((page) => page.path !== '/archives')) {
+    const archivepage = await createPage(app, {
+      path: '/archives',
+      frontmatter: {
+        _archives: true
+      }
+    })
+    app.pages.push(archivepage)
+  }
 
-  const archivepage = await createPage(app, {
-    path: '/archives',
-    frontmatter: {
-      _archives: true
-    }
-  })
-
-  const tagspage = await createPage(app, {
-    path: '/tags',
-    frontmatter: {
-      _tags: true
-    }
-  })
-
-  app.pages.push(archivepage)
-  app.pages.push(tagspage)
-
+  if (app.pages.every((page) => page.path !== '/tags')) {
+    const tagspage = await createPage(app, {
+      path: '/tags',
+      frontmatter: {
+        _tags: true
+      }
+    })
+    app.pages.push(tagspage)
+  }
+  
   if (app.pages.every((page) => page.path !== '/')) {
     const homepage = await createPage(app, {
       path: '/',

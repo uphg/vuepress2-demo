@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-// import { withBase } from '@vuepress/client'
 import { timeFromNow } from '../../utils'
 import { PostType } from '../../shared'
 

@@ -4,11 +4,8 @@ export const find = <T>(
 ) => {
   for (let i = 0; i < array.length; i++) {
     if(testFun(array[i], i, array)) {
-      return {
-        item: array[i],
-        index: i
-      }
+      return array[i]
     }
   }
-  return null
+  return false
 }

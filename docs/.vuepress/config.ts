@@ -7,7 +7,9 @@ export default defineUserConfig<DefaultThemeOptions>({
   lang: 'zh-CN',
   title: 'VuePress',
   description: 'Vue 驱动的静态网站生成器',
-
+  head: [
+    ['link', {rel: 'stylesheet', href: '/font/index.css'}],
+  ],
   theme: path.resolve(__dirname, 'theme'),
   themeConfig: {
     darkMode: true,
