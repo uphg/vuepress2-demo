@@ -6,6 +6,10 @@ tags:
   - 周杰伦
 ---
 
+## 图片
+
+<img :src="$withBase('/images/avatar.jpg')" alt="VuePress Logo">
+
 ## 爱在西元前 - 周杰伦 (Jay Chou)
 
 词：方文山

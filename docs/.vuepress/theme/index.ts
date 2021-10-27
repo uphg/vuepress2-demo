@@ -51,7 +51,15 @@ module.exports = (options, app) => {
         //   : false,
       ],
       ['@vuepress/nprogress'],
-      ['@vuepress/plugin-git']
+      ['@vuepress/plugin-git'],
+      ['@vuepress/plugin-back-to-top'],
+      ['@vuepress/plugin-medium-zoom', {
+        selector:
+          '.theme-default-content > img, .theme-default-content :not(a) > img',
+        zoomOptions: {},
+        // should greater than page transition duration
+        delay: 400,
+      }]
     ],
   }
 }
