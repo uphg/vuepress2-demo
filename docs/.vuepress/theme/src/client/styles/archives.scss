@@ -30,9 +30,10 @@
   font-size: 14px;
   color: #86909c;
   line-height: 1;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   .link {
     color: inherit;
+    transition: color 0.25s;
     &:hover {
       color: var(--c-text-accent);
     }

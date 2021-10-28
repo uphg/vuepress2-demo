@@ -1,7 +1,18 @@
 :root {
   // brand colors
-  --c-brand: #3eaf7c;
-  --c-brand-light: #4abf8a;
+
+  // 原生样式
+  // --c-brand: #3eaf7c;
+  // --c-brand-light: #4abf8a;
+
+  // 深蓝色
+  // --c-brand: #485fc7;
+  // --c-brand-light: #6376cf;
+
+  // 正蓝色
+  --c-brand: #1a73e8;
+  --c-brand-light: #135bb9;
+
 
   // background colors
   --c-bg: #ffffff;
@@ -130,8 +141,12 @@
 }
 
 .tags {
-  --tag-button-color: var(--c-bg);
-  --tag-button-bg-color: rgba(0, 0, 0, .05);
-  --tag-button-hover-bg-color: rgba(0, 0, 0, .1);
+  // --tag-button-color: var(--c-bg);
+  // --tag-button-bg-color: rgba(0, 0, 0, .05);
+  // --tag-button-hover-bg-color: rgba(0, 0, 0, .1);
+  --tag-button-color: var(--c-brand);
+  --tag-button-active-color: var(--c-bg);
+  --tag-button-bg-color: #eff1fa;
+  --tag-button-hover-bg-color: rgba(56, 80, 183, .2);
   --tag-button-active-bg-color: var(--c-brand);
 }

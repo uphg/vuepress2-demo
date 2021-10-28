@@ -7,19 +7,23 @@
     border: none;
     white-space: nowrap;
     cursor: pointer;
+    color: var(--tag-button-color);
     height: 2em;
     line-height: 1.5;
     padding-left: 0.75em;
     padding-right: 0.75em;
     background-color: var(--tag-button-bg-color);
-    border-radius: 6px;
-    margin-right: 1em;
+    border-radius: 4px;
+    margin: {
+      right: 1em;
+      bottom: 1em;
+    }
     transition: background-color 0.1s, color 0.1s;
     &:hover {
       background-color: var(--tag-button-hover-bg-color);
     }
     &.is-active {
-      color: #fff;
+      color: var(--tag-button-active-color);
       background-color: var(--tag-button-active-bg-color);
     }
   }

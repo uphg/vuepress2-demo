@@ -1,7 +1,9 @@
 html.dark {
   // brand colors
-  --c-brand: #3aa675;
-  --c-brand-light: #349469;
+  // --c-brand: #3aa675;
+  // --c-brand-light: #349469;
+  --c-brand: #00b2ff;
+  --c-brand-light: #3e8ed0;
 
   // background colors
   --c-bg: #22272e;
@@ -47,7 +49,7 @@ html.dark .DocSearch {
 
 html.dark {
   .tags {
-    --tag-button-bg-color: rgba(255, 255, 255, .05);
+    --tag-button-bg-color: rgba(255, 255, 255, .06);
     --tag-button-hover-bg-color: rgba(255, 255, 255, .1);
   }
 }
