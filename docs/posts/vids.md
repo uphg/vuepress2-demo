@@ -10,14 +10,6 @@ tags:
 
 <img :src="$withBase('/images/avatar.jpg')" alt="VuePress Logo">
 
-## 爱在西元前 - 周杰伦 (Jay Chou)
-
-词：方文山
-
-曲：周杰伦
-
-编曲：林迈可
-
 古巴比伦王颁布了
 
 汉摩拉比法典

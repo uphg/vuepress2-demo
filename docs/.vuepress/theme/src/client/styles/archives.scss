@@ -1,4 +1,5 @@
 @import '_wrapper';
+@import '_mixins';
 
 .archives {
   @extend %wrapper;
@@ -6,7 +7,7 @@
 }
 
 .archive {
-  padding: 0 0 2rem;
+  padding: 0 0 1.2rem;
   & > .title {
     color: var(--c-text-lighter);
     font-weight: bold;
@@ -21,7 +22,7 @@
     margin: {
       top: 0;
       bottom: 0;
-      left: 3px;
+      left: 1px;
     };
   }
 }
@@ -30,10 +31,14 @@
   font-size: 14px;
   color: #86909c;
   line-height: 1;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   .link {
+    display: inline-block;
+    max-width: calc(100% - 65px);
+    @include text-ellipsis;
     color: inherit;
     transition: color 0.25s;
+    padding: 1px 0;
     &:hover {
       color: var(--c-text-accent);
     }

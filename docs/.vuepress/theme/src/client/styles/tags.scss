@@ -3,6 +3,9 @@
 .tags {
   @extend %wrapper;
   padding-top: var(--navbar-height);
+  .tags-content {
+    padding-bottom: 1.5rem;
+  }
   .tag-button {
     border: none;
     white-space: nowrap;

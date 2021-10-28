@@ -1,5 +1,6 @@
 @import '_variables';
 @import '_wrapper';
+@import '_mixins';
 
 .page {
   padding-bottom: 2rem;
@@ -58,16 +59,47 @@
 }
 
 .page-nav {
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .prev {
+    width: 50%;
+    margin-right: auto;
+  }
+  .next {
+    width: 50%;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
   .prev, .next {
     display: inline-flex;
     align-items: center;
   }
+  .prev-icon {
+    margin-right: 5px;
+  }
+  .next-icon {
+    margin-left: 5px;
+  }
   .prev-icon, .next-icon {
-    width: 0.9em;
-    height: 0.9em;
+    width: 1em;
+    height: 1em;
   }
   .inner .nav-link {
+    @include text-ellipsis;
+    max-width: calc(100% - 21px);
     line-height: 1;
+  }
+  @media (max-width: $MQMobile) {
+    .prev {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .next {
+      width: 100%;
+    }
   }
 }
 
@@ -95,10 +127,10 @@
     border-top: 1px solid var(--c-border);
     transition: border-color var(--t-color);
     padding-top: 1rem;
-    overflow: auto;
+    // overflow: auto;
   }
 
-  .next {
-    float: right;
-  }
+  // .next {
+  //   float: right;
+  // }
 }

@@ -7,9 +7,9 @@
         :key="index"
         :class="[
           'tag-button',
-          { 'is-active': activeIndex === index }
+          { 'is-active': tagsIndex === index }
         ]"
-        @click="clickTag(index)"
+        @click="onClickTag(index)"
       >{{ item }}</button>
     </section>
     <div class="tag-archives">
@@ -36,22 +36,24 @@ import Archive from './Archive.vue';
 import Pagination from './Pagination.vue'
 
 const pageSize = 20
-const activeIndex = ref(-1)
+const tagsIndex = ref(-1)
 const currentPage = ref(1)
 
-const clickTag = (index) => {
-  activeIndex.value = activeIndex.value === index ? -1 : index
+const onClickTag = (index) => {
+  tagsIndex.value = tagsIndex.value === index ? -1 : index
+  if (!(currentArchives.value && currentArchives.value.length > 0)) {
+    currentPage.value = 1
+  }
 }
 
 const currentPosts = computed(() => {
-  return activeIndex.value >= 0 ? tagPages.filter((post) => {
-    const tag = tags[activeIndex.value]
+  return tagsIndex.value >= 0 ? tagPages.filter((post) => {
+    const tag = tags[tagsIndex.value]
     return post?.tags?.includes(tag)
   }) || [] : tagPages
 })
 
 const archivePaginations = computed(() => createArchivePaginations(currentPosts.value, pageSize))
-
 const total = computed(() => currentPosts.value.length)
 const currentArchives = computed<ArchiveType[]>(() => archivePaginations.value[currentPage.value - 1])
 </script>
