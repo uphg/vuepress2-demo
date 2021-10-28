@@ -128,3 +128,10 @@
   --search-item-text-color: var(--c-text-lighter);
   --search-item-focus-bg-color: var(--c-bg-light);
 }
+
+.tags {
+  --tag-button-color: var(--c-bg);
+  --tag-button-bg-color: rgba(0, 0, 0, .05);
+  --tag-button-hover-bg-color: rgba(0, 0, 0, .1);
+  --tag-button-active-bg-color: var(--c-brand);
+}

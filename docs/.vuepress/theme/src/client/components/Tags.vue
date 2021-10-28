@@ -7,7 +7,7 @@
         :key="index"
         :class="[
           'tag-button',
-          { active: activeIndex === index }
+          { 'is-active': activeIndex === index }
         ]"
         @click="clickTag(index)"
       >{{ item }}</button>
