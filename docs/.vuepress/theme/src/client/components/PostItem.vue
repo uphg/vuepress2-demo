@@ -14,7 +14,7 @@
       </template>
       <template v-for="(tag, index) in item.tags" :key="index">
         <span v-if="index !== 0" class="divider"></span>
-        <span class="tag-item">{{ tag }}</span>
+        <span class="tag-item" @click.prevent="onClickTag(tag)">{{ tag }}</span>
       </template>
     </div>
   </router-link>
@@ -23,8 +23,21 @@
 <script setup lang="ts">
 import { timeFromNow } from '../../utils'
 import { PostType } from '../../shared'
+import { useRouter, useRoute } from 'vue-router'
 
 defineProps<{
   item: PostType
 }>()
+
+const router = useRouter()
+const route = useRoute()
+
+console.log('route')
+console.log(route)
+
+const onClickTag = (tag) => {
+  router.push({
+    path: '/tags/'
+  })
+}
 </script>

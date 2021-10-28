@@ -48,6 +48,12 @@
     background-color: var(--c-border);
     transition: background-color 0.3s;
   }
+  .tag-item {
+    transition: color 0.25s;
+    &:hover {
+      color: var(--c-text-accent);
+    }
+  }
 }
 
 .dark .post-item:hover {
