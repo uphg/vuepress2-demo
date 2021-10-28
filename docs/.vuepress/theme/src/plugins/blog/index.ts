@@ -3,6 +3,7 @@ import { createPage } from '@vuepress/core';
 import { createPosts, isPostDir } from './post'
 import { createSimplePosts } from './simple-post'
 import { createArchivePaginations } from '../../utils';
+import { createTags } from './tags';
 
 const _descriptions = [] as { [key: string]: string }[]
 
@@ -46,11 +47,18 @@ module.exports = (options, ctx) => {
       const _simplePosts = createSimplePosts(_posts)
 
       const archivePaginations = createArchivePaginations(_posts, archivePageSize)
+      const { tags: _tags, tagPages: _tagPages } = createTags(_posts)
 
       await createTemp([
         {
           path: `${PREFIX}/simple-pages.js`,
           content: `export const simplePages = ${JSON.stringify(_simplePosts)}`
+        },
+        {
+          path: `${PREFIX}/post-pagination.js`,
+          content: `export const postPaginations = ${JSON.stringify(postPaginations)};
+          export const postTotal = ${_posts.length};
+          export const postPageSize = ${postPageSize};\n`
         },
         {
           path: `${PREFIX}/archive-pagination.js`,
@@ -59,10 +67,9 @@ module.exports = (options, ctx) => {
           export const archivePageSize = ${archivePageSize};\n`
         },
         {
-          path: `${PREFIX}/post-pagination.js`,
-          content: `export const postPaginations = ${JSON.stringify(postPaginations)};
-          export const postTotal = ${_posts.length};
-          export const postPageSize = ${postPageSize};\n`
+          path: `${PREFIX}/tags.js`,
+          content: `export const tags = ${JSON.stringify(_tags)};
+          export const tagPages = ${JSON.stringify(_tagPages)};`
         }
       ], app)
     },

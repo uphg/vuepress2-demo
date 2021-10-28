@@ -141,12 +141,9 @@
 }
 
 .tags {
-  // --tag-button-color: var(--c-bg);
-  // --tag-button-bg-color: rgba(0, 0, 0, .05);
-  // --tag-button-hover-bg-color: rgba(0, 0, 0, .1);
   --tag-button-color: var(--c-brand);
   --tag-button-active-color: var(--c-bg);
-  --tag-button-bg-color: #eff1fa;
-  --tag-button-hover-bg-color: rgba(56, 80, 183, .2);
+  --tag-button-bg-color: #ecf5ff;
+  --tag-button-hover-bg-color: rgba(26, 115, 232, .2);
   --tag-button-active-bg-color: var(--c-brand);
 }
