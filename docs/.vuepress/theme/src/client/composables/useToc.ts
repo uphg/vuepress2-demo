@@ -2,6 +2,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { usePageData } from '@vuepress/client'
 import { getHeaderFlats } from '../utils/header-flat'
 import debounce from 'lodash.debounce'
+import isServer from '../utils/isServer'
 
 const TOLERANCE_RATE = 2
 const getHeaderDoms = (headers) => headers.map(({ slug }) => document.getElementById(slug))
@@ -18,7 +19,7 @@ export const useToc = () => {
   }
 
   // 当前窗口可视区域高度
-  const viewHeight = Math.max(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
+  const viewHeight = isServer ? 0 : Math.max(window.innerHeight, document.documentElement.clientHeight, document.body.clientHeight)
 
   const onScroll = () => {
     const scrollTop = document.body.scrollTop + document.documentElement.scrollTop
@@ -47,15 +48,14 @@ export const useToc = () => {
       activeLink(headerIndex)
     }
 
+    // 处理标题过多无法全部展示的情况
     nextTick(() => {
       const tocHeight = document.querySelector('.vuepress-toc')?.clientHeight || 0
       const tocWrap = document.querySelector('.vuepress-toc > .toc-wrap') as HTMLElement
       const currentTocLink = document.querySelector('.vuepress-toc > .toc-wrap > .toc-item.active')
-      console.log('currentTocLink')
       const activeTocOffsetTop = (currentTocLink as HTMLElement)?.offsetTop || 0
-      console.log()
+
       if (activeTocOffsetTop > tocHeight / 2) {
-        console.log('滚动到下半部了')
         tocWrap.style.transform = `translateY(-${(activeTocOffsetTop - tocHeight / 2) || 0}px)`
       } else {
         tocWrap.style.transform = `translateY(0px)`
@@ -66,6 +66,7 @@ export const useToc = () => {
   const _onScroll = debounce(onScroll, 250, { leading: true })
 
   onMounted(() => {
+    if (isServer) return
     headerDoms.value = getHeaderDoms(headerFlats)
     if (headerDoms.value.length < 1) return
     contentHeight.value = document.querySelector('.theme-container > .page')?.clientHeight || 0
@@ -73,7 +74,7 @@ export const useToc = () => {
   })
 
   onBeforeUnmount(() => {
-    if (headerDoms.value.length < 1) return
+    if (isServer || headerDoms.value?.length < 1) return
     window.removeEventListener('scroll', _onScroll)
   })
 

@@ -14,7 +14,7 @@ $ContentWidth: var(--content-width) !default;
   position: fixed;
   top: calc(var(--navbar-height) + 1.5rem);
   left: calc(50% + ($ContentWidth / 2) + 2.5rem);
-  bottom: 2rem;
+  bottom: 0;
   font-size: 14px;
   overflow: hidden;
   .toc-wrap {
