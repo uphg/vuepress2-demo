@@ -1,6 +1,6 @@
 <template>
-  <div class="article-header">
-    <h2 class="title">{{ title }}</h2>
+  <header class="article-header">
+    <h1 class="title">{{ title }}</h1>
     <div class="meta">
       <template v-if="author">
         <span class="author">{{ author }}</span>
@@ -8,7 +8,7 @@
       </template>
       <span class="date">{{ timeFromNow(page.frontmatter.date || 0) }}</span>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">

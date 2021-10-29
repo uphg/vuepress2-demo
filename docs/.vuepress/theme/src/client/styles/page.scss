@@ -2,9 +2,17 @@
 @import '_wrapper';
 @import '_mixins';
 
+$ContentWidth: var(--content-width) !default;
+
 .page {
   padding-bottom: 2rem;
   display: block;
+  .vuepress-toc {
+    width: 220px;
+    position: fixed;
+    top: var(--navbar-height);
+    left: calc(50% + ($ContentWidth/2) + 2.5rem);
+  }
 }
 
 .page-meta {
@@ -39,7 +47,7 @@
 }
 
 .article-header {
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   & > .title {
     margin: 1em 0 0;
     font-size: 2em;
@@ -90,7 +98,7 @@
   .inner .nav-link {
     @include text-ellipsis;
     max-width: calc(100% - 21px);
-    line-height: 1;
+    line-height: 1.2;
   }
   @media (max-width: $MQMobile) {
     .prev {
