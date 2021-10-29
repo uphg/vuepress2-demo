@@ -19,4 +19,13 @@ import PageMeta from './PageMeta.vue'
 import PageNav from './PageNav.vue'
 import ArticleHeader from './ArticleHeader.vue';
 import Toc from './Toc.vue';
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+
+onMounted(() => {
+  document.documentElement.classList.add('smooth')
+})
+
+onBeforeUnmount(() => {
+  document.documentElement.classList.remove('smooth')
+})
 </script>
