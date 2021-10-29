@@ -52,4 +52,7 @@ html.dark {
     --tag-button-bg-color: rgba(255, 255, 255, .06);
     --tag-button-hover-bg-color: rgba(255, 255, 255, .1);
   }
+  .vuepress-toc {
+    --toc-link-active-bg-color: rgba(255, 255, 255, .05);
+  }
 }

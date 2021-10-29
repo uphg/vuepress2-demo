@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { usePageData } from '@vuepress/client'
 import { getHeaderFlats } from '../utils/header-flat'
 import debounce from 'lodash.debounce'
@@ -44,9 +44,23 @@ export const useToc = () => {
           }
         }
       }
-      
       activeLink(headerIndex)
     }
+
+    nextTick(() => {
+      const tocHeight = document.querySelector('.vuepress-toc')?.clientHeight || 0
+      const tocWrap = document.querySelector('.vuepress-toc > .toc-wrap') as HTMLElement
+      const currentTocLink = document.querySelector('.vuepress-toc > .toc-wrap > .toc-item.active')
+      console.log('currentTocLink')
+      const activeTocOffsetTop = (currentTocLink as HTMLElement)?.offsetTop || 0
+      console.log()
+      if (activeTocOffsetTop > tocHeight / 2) {
+        console.log('滚动到下半部了')
+        tocWrap.style.transform = `translateY(-${(activeTocOffsetTop - tocHeight / 2) || 0}px)`
+      } else {
+        tocWrap.style.transform = `translateY(0px)`
+      }
+    })
   }
 
   const _onScroll = debounce(onScroll, 250, { leading: true })

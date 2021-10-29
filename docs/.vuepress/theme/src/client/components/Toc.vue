@@ -1,19 +1,21 @@
 <template>
   <div class="vuepress-toc">
-    <div
-      v-for="(item, index) in headerFlats"
-      :key="index"
-      class="toc-item"
-      :class="[
-        `toc-h${item.level}`,
-        { active: activeIndex === index },
-      ]"
-    >
-      <a
-        class="toc-link"
-        :href="`#${item.slug}`"
-        :title="item.title"
-      >{{ item.title }}</a>
+    <div class="toc-wrap">
+      <div
+        v-for="(item, index) in headerFlats"
+        :key="index"
+        class="toc-item"
+        :class="[
+          `toc-h${item.level}`,
+          { active: activeIndex === index },
+        ]"
+      >
+        <a
+          class="toc-link"
+          :href="`#${item.slug}`"
+          :title="item.title"
+        >{{ item.title }}</a>
+      </div>
     </div>
   </div>
 </template>

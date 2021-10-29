@@ -16,15 +16,19 @@ $ContentWidth: var(--content-width) !default;
   left: calc(50% + ($ContentWidth / 2) + 2.5rem);
   bottom: 2rem;
   font-size: 14px;
+  overflow: hidden;
+  .toc-wrap {
+    transition: transform 0.25s;
+  }
   .toc-link {
     @include text-ellipsis;
     font-weight: normal;
     color: inherit;
     border-radius: 4px;
-    padding: 2px 10px;
+    padding: 2px 10px 3px;
     display: inline-block;
     width: 100%;
-    line-height: 1.55;
+    // line-height: 1.55;
     box-sizing: border-box;
     transition: background-color 0.25s, color 0.25s;
   }
@@ -33,10 +37,10 @@ $ContentWidth: var(--content-width) !default;
   }
   .toc-item {
     &:hover .toc-link {
-      background-color: rgba(0, 0, 0, .05);
+      background-color: var(--toc-link-active-bg-color);
     }
     &.active .toc-link {
-      background-color: rgba(0, 0, 0, .05);
+      background-color: var(--toc-link-active-bg-color);
       color: var(--c-text-accent);
     }
   }
