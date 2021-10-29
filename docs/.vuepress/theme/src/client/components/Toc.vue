@@ -3,24 +3,23 @@
     <div
       v-for="(item, index) in headerFlats"
       :key="index"
+      class="toc-item"
       :class="[
-        `vuepress-toc-h${item.level}`,
+        `toc-h${item.level}`,
         { active: activeIndex === index },
       ]"
     >
-      <a :href="`#${item.slug}`" :title="item.title">{{ item.title }}</a>
+      <a
+        class="toc-link"
+        :href="`#${item.slug}`"
+        :title="item.title"
+      >{{ item.title }}</a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { usePageData } from '@vuepress/client'
-import { useHeaderFlats } from '../utils/header-flat'
+import { useToc } from '../composables/useToc';
 
-const page = usePageData()
-const headerFlats = useHeaderFlats(page.value.headers)
-const activeIndex = ref(0)
-console.log('headerFlats')
-console.log(headerFlats)
+const { headerFlats, activeIndex } = useToc()
 </script>

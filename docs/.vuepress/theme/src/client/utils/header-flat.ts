@@ -10,7 +10,7 @@ const headerFlat = (headers) => {
   }
 }
 
-export const useHeaderFlats = (headers) => {
+export const getHeaderFlats = (headers) => {
   _headerFlats = []
   headerFlat(headers)
   return _headerFlats
