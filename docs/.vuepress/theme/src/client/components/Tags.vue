@@ -7,7 +7,7 @@
         :key="index"
         :class="[
           'tag-button',
-          { 'is-active': tagsIndex === index }
+          { 'is-active': activeIndex === index }
         ]"
         @click="onClickTag(item, index)"
       >{{ item }}</button>
@@ -40,7 +40,7 @@ const route = useRoute()
 const router = useRouter()
 
 const pageSize = 20
-const tagsIndex = ref(-1)
+const activeIndex = ref(-1)
 const currentPage = ref(1)
 
 const onClickTag = (activeTag, index) => {
@@ -49,7 +49,7 @@ const onClickTag = (activeTag, index) => {
 }
 
 const setTagIndex = (index) => {
-  tagsIndex.value = tagsIndex.value === index ? -1 : index
+  activeIndex.value = activeIndex.value === index ? -1 : index
   if (!(currentArchives.value && currentArchives.value.length > 0)) {
     currentPage.value = 1
   }
@@ -64,8 +64,8 @@ const setQueryTag = (activeTag) => {
 }
 
 const currentPosts = computed(() => {
-  return tagsIndex.value >= 0 ? tagPages.filter((post) => {
-    return post?.tags?.includes(tags[tagsIndex.value])
+  return activeIndex.value >= 0 ? tagPages.filter((post) => {
+    return post?.tags?.includes(tags[activeIndex.value])
   }) || [] : tagPages
 })
 
