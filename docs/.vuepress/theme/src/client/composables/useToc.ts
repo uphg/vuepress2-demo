@@ -1,19 +1,21 @@
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick, inject, computed } from 'vue'
+import type { Ref } from 'vue'
 import { usePageData } from '@vuepress/client'
 import { getHeaderFlats } from '../utils/header-flat'
 import debounce from 'lodash.debounce'
 import isServer from '../utils/isServer'
 
 const TOLERANCE_RATE = 2
-const getHeaderDoms = (headers) => headers.map(({ slug }) => document.getElementById(slug))
 
 export const useToc = () => {
   const page = usePageData()
   const headerFlats = getHeaderFlats(page.value.headers)
   const activeIndex = ref(0)
   const headerDoms = ref<HTMLElement[]>([])
-  const contentHeight = ref<number>(0)
+  const pageEl = inject<Ref<HTMLElement>>('pageEl')
+  const contentHeight = computed(() => pageEl?.value?.clientHeight || 0)
 
+  const getHeaderDoms = (headers) => headers.map(({ slug }) => pageEl?.value.querySelector(`#${slug}`))
   const activeLink = index => {
     activeIndex.value = index
   }
@@ -49,18 +51,7 @@ export const useToc = () => {
     }
 
     // 处理标题过多无法全部展示的情况
-    nextTick(() => {
-      const tocHeight = document.querySelector('.vuepress-toc')?.clientHeight || 0
-      const tocWrap = document.querySelector('.vuepress-toc > .toc-wrap') as HTMLElement
-      const currentTocLink = document.querySelector('.vuepress-toc > .toc-wrap > .toc-item.active')
-      const activeTocOffsetTop = (currentTocLink as HTMLElement)?.offsetTop || 0
-
-      if (activeTocOffsetTop > tocHeight / 2) {
-        tocWrap.style.transform = `translateY(-${(activeTocOffsetTop - tocHeight / 2) || 0}px)`
-      } else {
-        tocWrap.style.transform = `translateY(0px)`
-      }
-    })
+    autoScrollToc()
   }
 
   const _onScroll = debounce(onScroll, 250, { leading: true })
@@ -69,7 +60,6 @@ export const useToc = () => {
     if (isServer) return
     headerDoms.value = getHeaderDoms(headerFlats)
     if (headerDoms.value.length < 1) return
-    contentHeight.value = document.querySelector('.theme-container > .page')?.clientHeight || 0
     window.addEventListener('scroll', _onScroll)
   })
 
@@ -83,4 +73,20 @@ export const useToc = () => {
     activeIndex,
     onScroll
   }
+}
+
+export const autoScrollToc = () => {
+  nextTick(() => {
+    const tocHeight = document.querySelector('.vuepress-toc')?.clientHeight || 0
+    const tocWrap = document.querySelector('.vuepress-toc > .toc-wrap') as HTMLElement
+    const currentTocLink = document.querySelector('.vuepress-toc > .toc-wrap > .toc-item.active')
+    const activeTocOffsetTop = (currentTocLink as HTMLElement)?.offsetTop || 0
+    const centralTop = tocHeight / 2
+
+    if (activeTocOffsetTop > centralTop) {
+      tocWrap.style.transform = `translateY(-${(activeTocOffsetTop - centralTop) || 0}px)`
+    } else {
+      tocWrap.style.transform = `translateY(0px)`
+    }
+  })
 }

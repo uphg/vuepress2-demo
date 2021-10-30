@@ -12,13 +12,14 @@ $ContentWidth: var(--content-width) !default;
 .vuepress-toc {
   width: 220px;
   position: fixed;
-  top: calc(var(--navbar-height) + 1.5rem);
+  top: var(--navbar-height);
   left: calc(50% + ($ContentWidth / 2) + 2.5rem);
   bottom: 0;
   font-size: 14px;
   overflow: hidden;
   .toc-wrap {
     transition: transform 0.25s;
+    padding-top: 1.5rem;
   }
   .toc-link {
     @include text-ellipsis;

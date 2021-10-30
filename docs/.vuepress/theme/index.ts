@@ -53,15 +53,10 @@ module.exports = (options, app) => {
        */
       [
         '@vuepress/plugin-shiki',
-        {
-          theme: 'dark-plus'
-        }
-        // isProd
-        //   ? {
-        //       theme: 'dark-plus',
-        //       // theme: 'material-ocean',
-        //     }
-        //   : false,
+        // {
+        //   theme: 'dark-plus'
+        // }
+        isProd ? { theme: 'dark-plus' } : false,  //theme: 'material-ocean'
       ],
       ['@vuepress/nprogress'],
       ['@vuepress/plugin-git'],

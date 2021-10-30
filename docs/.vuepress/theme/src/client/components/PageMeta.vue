@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePageData, usePageFrontmatter, useSiteLocaleData, } from '@vuepress/client'
+import { usePageData, usePageFrontmatter/* , useSiteLocaleData, */ } from '@vuepress/client'
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import type {
@@ -81,7 +81,7 @@ const useEditNavLink = (): ComputedRef<null | NavLinkType> => {
 }
 
 const useLastUpdated = (): ComputedRef<null | string> => {
-  const siteLocale = useSiteLocaleData()
+  // const siteLocale = useSiteLocaleData()
   const themeLocale = useThemeLocaleData()
   const page = usePageData<DefaultThemePageData>()
   const frontmatter = usePageFrontmatter<DefaultThemeNormalPageFrontmatter>()

@@ -4,6 +4,7 @@ import { createPosts, isPostDir } from './post'
 import { createSimplePosts } from './simple-post'
 import { createArchivePaginations } from '../../utils';
 import { createTags } from './tags';
+import { getNavPages } from './nav-page';
 
 const _descriptions = [] as { [key: string]: string }[]
 
@@ -43,6 +44,8 @@ module.exports = (options, ctx) => {
       const postPageSize = 10
       const archivePageSize = 20
 
+      const _navPages = getNavPages(app.pages)
+
       const { posts: _posts, postPaginations } = createPosts(app.pages, _descriptions, postPageSize)
       const _simplePosts = createSimplePosts(_posts)
 
@@ -50,6 +53,10 @@ module.exports = (options, ctx) => {
       const { tags: _tags, tagPages: _tagPages } = createTags(_posts)
 
       await createTemp([
+        {
+          path: `${PREFIX}/nav-pages.js`,
+          content: `export const navPages = ${JSON.stringify(_navPages)}`
+        },
         {
           path: `${PREFIX}/simple-pages.js`,
           content: `export const simplePages = ${JSON.stringify(_simplePosts)}`

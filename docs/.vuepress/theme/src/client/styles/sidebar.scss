@@ -30,7 +30,8 @@
   }
 
   .sidebar-links {
-    padding: 1.5rem 0;
+    // padding: 1.5rem 0;
+    padding: 1.5rem;
 
     > li:not(:first-child) {
       margin-top: 0.75rem;
@@ -40,6 +41,12 @@
       padding-left: 1rem;
       font-size: 0.95em;
     }
+  }
+
+  .vuepress-toc {
+    display: block;
+    height: auto;
+    position: initial;
   }
 }
 
@@ -57,7 +64,8 @@
     }
 
     .sidebar-links {
-      padding: 1rem 0;
+      // padding: 1rem 0;
+      padding: 1rem;
     }
   }
 }
