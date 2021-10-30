@@ -1,7 +1,5 @@
-# VuePress 插件
+# VuePress 2.x 创建博客
 
-使用 VuePress 插件功能 Demo
+使用 VuePress 2.x 插件功能搭建静态博客网站。
 
-- [x] 使用插件功能修改文件路由路径
-- [x] 使用插件添加文章详情（description）
 
