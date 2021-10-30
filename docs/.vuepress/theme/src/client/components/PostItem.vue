@@ -23,21 +23,15 @@
 <script setup lang="ts">
 import { timeFromNow } from '../../utils'
 import { PostType } from '../../shared'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 defineProps<{
   item: PostType
 }>()
 
 const router = useRouter()
-const route = useRoute()
-
-console.log('route')
-console.log(route)
 
 const onClickTag = (tag) => {
-  router.push({
-    path: '/tags/'
-  })
+  router.push({ path: '/tags/', query: { activeTag: tag } })
 }
 </script>

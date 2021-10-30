@@ -1,4 +1,5 @@
 import { find } from "./src/utils"
+import { navbar } from "./config"
 
 const { path } = require('@vuepress/utils')
 const pluginBlog = require('./src/plugins/blog/index.ts')
@@ -22,12 +23,7 @@ module.exports = (options, app) => {
     options.navbar = []
   }
 
-  createNavbar(options.navbar, [
-    { text: '首页', link: '/' },
-    { text: '归档', link: '/archives/' },
-    { text: '标签', link: '/tags/' },
-    { text: '关于', link: '/about/' },
-  ])
+  createNavbar(options.navbar, navbar)
 
   return {
     layouts: {
